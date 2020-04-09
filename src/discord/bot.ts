@@ -44,7 +44,7 @@ export class Bot {
       log.error("Discord token is missing!")
     } else {
       try {
-        await this.client.login(this.options.token)
+        await this.client.login(process.env.BOT_TOKEN)
         log.info("Logged in")
       } catch (err) {
         log.error(
