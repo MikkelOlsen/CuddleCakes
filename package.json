@@ -1,0 +1,54 @@
+{
+  "name": "rs-bot",
+  "version": "1.0.0",
+  "description": "RuneScape Discord bot",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=12.4.0"
+  },
+  "keywords": [
+    "discord",
+    "runescape"
+  ],
+  "config": {
+    "imageRepo": "krissrex/rs-bot"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpileOnly --no-notify src/index.ts",
+    "debug": "ts-node-dev --transpileOnly --no-notify --nolazy --inspect-brk=9229 src/index.ts",
+    "predocker:build": "npm run build",
+    "docker:build": "cross-conf-env docker image build . -t $npm_package_config_imageRepo:$npm_package_version",
+    "postdocker:build": "npm run docker:tag",
+    "docker:tag": "cross-conf-env docker image tag $npm_package_config_imageRepo:$npm_package_version $npm_package_config_imageRepo:latest"
+  },
+  "author": "Kristian Rekstad",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.2.0",
+    "image-data-uri": "^2.0.1",
+    "pino": "^5.13.6",
+    "pino-pretty": "^3.4.0",
+    "wolfram-alpha-api": "https://products.wolframalpha.com/api/libraries/javascript/wolfram-alpha-api-1.0.0-rc.1.tgz"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.11",
+    "@types/pino": "^5.8.13",
+    "cross-conf-env": "^1.1.2",
+    "jest": "^24.9.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "1.19.1",
+    "ts-jest": "^24.1.0",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.7.2"
+  }
+}
